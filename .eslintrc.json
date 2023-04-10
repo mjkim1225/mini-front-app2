@@ -28,6 +28,8 @@
         "comma-dangle": "off",
         "@typescript-eslint/comma-dangle": "off", // for TS
         "@typescript-eslint/no-unused-vars": "off", //사용한하는 변수 표시 off
+        "@typescript-eslint/strict-boolean-expressions": "off", // for TS // boolean 타입 체크 off
+        "@typescript-eslint/restrict-template-expressions": "off", // for TS // template 타입 체크 off
         // import Rreact from 'react', import ReactDOM from 'react-dom' 생략 체크
         "react/react-in-jsx-scope": "off",
         // 컴퍼넌트 선언 시 화살표 함수 선언 체크
