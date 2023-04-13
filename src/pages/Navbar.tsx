@@ -1,61 +1,44 @@
-import React, { useEffect } from 'react'
+import react from 'react'
 import { useKeycloak } from '@react-keycloak/web'
+import { onKeycloakEvent } from '../keycloak/keycloak'
 
 export const Navbar = () => {
     const { keycloak, initialized } = useKeycloak()
-
-    useEffect(() => {
-        if (keycloak) {
-            console.log(keycloak)
-            const k = keycloak
-            const i = initialized
-            debugger
-        }
-    })
-
     return (
-        <div>
-            <div className="top-0 w-full flex flex-wrap">
-                <section className="x-auto">
-                    <nav className="flex justify-between bg-gray-200 text-blue-800 w-screen">
-                        <div className="px-5 xl:px-12 py-6 flex w-full items-center">
-                            <h1 className="text-3xl font-bold font-heading">
-                                Keycloak React AUTH.
-                            </h1>
-                            <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
-                                <li>
-                                    <a className="hover:text-blue-800" href="/">
-                                        Home
-                                    </a>
-                                </li>
-                            </ul>
-                            <div className="hidden xl:flex items-center space-x-5">
-                                <div className="hover:text-gray-200">
-                                    {!keycloak.authenticated && (
-                                        <button
-                                            type="button"
-                                            className="text-blue-800"
-                                            onClick={() => keycloak.login()}
-                                        >
-                                            Login
-                                        </button>
-                                    )}
+        <>
+            <div>
+                <h1 >
+                    Keycloak React AUTH.
+                </h1>
+                <ul>
+                    <li>
+                        <a>
+                            Home
+                        </a>
+                    </li>
+                </ul>
+                <div>
+                    <div>
+                        {keycloak.authenticated === false && (
+                            <button
+                                type="button"
+                                className="text-blue-800"
+                                onClick={() => { onKeycloakEvent('onAuthLogin') }}>
+                                Login
+                            </button>
+                        )}
 
-                                    {!!keycloak.authenticated && (
-                                        <button
-                                            type="button"
-                                            className="text-blue-800"
-                                            onClick={() => keycloak.logout()}
-                                        >
-                                            Logout ({ keycloak?.tokenParsed?.preferred_username})
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-                </section>
+                        {(keycloak.authenticated === true) && (
+                            <button
+                                type="button"
+                                className="text-blue-800"
+                                onClick={() => { onKeycloakEvent('onAuthLogout') }}>
+                                Logout ({ keycloak?.tokenParsed?.preferred_username})
+                            </button>
+                        )}
+                    </div>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
